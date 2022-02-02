@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <ctime>
+
 using namespace std;
 
 typedef int Itemtype;
@@ -44,7 +46,7 @@ int main()
 {
 	srand(218);
 
-	const int MaxSize = 1000;
+	const int MaxSize = 10000;
 	Itemtype unsortedData[MaxSize];
 	Itemtype sortedData[MaxSize];
 
@@ -69,17 +71,17 @@ int main()
 		GetUserData(unsortedData, num);
 	}
 
-	/*CopyArray(unsortedData, sortedData, num);
+	CopyArray(unsortedData, sortedData, num);
 
 
 
 	clock_t begin_time = clock();
-	SelectionSort(sortedData, num);
+	//SelectionSort(sortedData, num);
 	clock_t end_time = clock();
 	
 	double elapsed = double(end_time - begin_time);
 
-	cout << "Selection sort: " << elapsed / CLOCKS_PER_SEC << " seconds elapsed for " << num << " elements" << endl;
+	/*cout << "Selection sort: " << elapsed / CLOCKS_PER_SEC << " seconds elapsed for " << num << " elements" << endl;
 	
 	CopyArray(unsortedData, sortedData, num);
 
@@ -114,9 +116,18 @@ int main()
 	cout << "Enhanced Bubble sort: " << elapsed / CLOCKS_PER_SEC << " seconds elapsed for " << num << " elements" << endl;
 	*/
 
+	/*begin_time = clock();
+	MergeSort(unsortedData, 0, num - 1);
+	end_time = clock();
+
+	elapsed = double(end_time - begin_time);
+	cout << "Merge sort: " << elapsed / CLOCKS_PER_SEC << " seconds elapsed for " << num << " elements" << endl;
+	*/
+
 	displayData(unsortedData, num);
 	QuickSort(unsortedData, 0, num - 1);
 	displayData(unsortedData, num);
+	
 
 	return 0;
 }
@@ -196,7 +207,7 @@ void MergeSort(Itemtype data[], int first, int last){
 }
 
 void Merge(Itemtype data[], int first, int middle, int last) {
-	const int size = 1000;
+	const int size = 10000;
 	Itemtype temp [size];
 	int index1, index2, index;
 	index1 = first;
@@ -233,7 +244,7 @@ void Merge(Itemtype data[], int first, int middle, int last) {
 
 
 void QuickSort(Itemtype data[], int first, int last){
-	if (first == last) {
+	if (first >= last) {
 		return;
 	}
 	else {
@@ -248,19 +259,21 @@ int Partition(Itemtype data[], int first, int last, int index) {
 	Itemtype pivot = data[index];
 
 	first++;
-	while(first < last) {
+	while(first <= last) {
 		while(data[first] <= pivot) {
 			first++;
 		}
-		while (data[last] >= pivot && first < last) {
+		while (data[last] > pivot) {
 			last--;
 		}
-		if (first < last) {
+		if (first <= last) {
 			SwapValues(data[first], data[last]);
+			//first++;
+			//last--;
 		}
 	}
-	last--;
-	SwapValues(data[pivot], data[last]);
+	//last--;
+	SwapValues(data[index], data[last]);
 	return last;
 }
 
